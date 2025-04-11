@@ -22,7 +22,17 @@ if (!YTDLP_PATH || !LISTEN_PORT || !GEMINI_API_KEY || !GEMINI_MODEL ||!MEALIE_HO
 
 // Setup clients
 const ai = new GoogleGenAI({apiKey: GEMINI_API_KEY});
-const mealie = new Mealie(MEALIE_HOST, MEALIE_TOKEN);
+const mealieClients = {
+    1: new Mealie(MEALIE_HOST, MEALIE_TOKEN),
+};
+
+// Load for any additional users
+Object.keys(process.env).forEach(key => {
+   const tokenMatch = /MEALIE_TOKEN_USER_(\d+)$/.exec(key);
+   if (tokenMatch && process.env[key]) {
+       mealieClients[parseInt(tokenMatch[1], 10)] = new Mealie(MEALIE_HOST, process.env[key]);
+   }
+});
 
 
 // Make sure YT-DLP exists & works
@@ -69,6 +79,13 @@ async function handleRequest(req, res) {
     const body = await gatherPostedJson(req);
     const requestData = parseRequestBody(res, body);
     if (!requestData) {
+        return;
+    }
+
+    // Check if Mealie is configured for this user
+    const mealie = mealieClients[requestData.user];
+    if (!mealie) {
+        doErrorResponse(res, 404, { error: 'User not found' });
         return;
     }
 

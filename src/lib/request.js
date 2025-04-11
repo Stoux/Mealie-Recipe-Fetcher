@@ -12,8 +12,12 @@ export function gatherPostedJson(req) {
 export function parseRequestBody(res, body) {
     try {
         let requestData = JSON.parse(body);
-        if (!requestData.url || !requestData.user) {
+        if (!requestData.url) {
             throw new Error('Missing "url" or "user" in JSON body');
+        }
+
+        if (!requestData.user) {
+            requestData.user = 1;
         }
 
         return requestData;
