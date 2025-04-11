@@ -1,0 +1,14 @@
+services:
+  mealie-recipe-fetcher:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: mealie-mealie-fetcher
+    ports:
+      - 8080:8080
+    env_file:
+      # See .env.example for all options
+      - .env
+#    volumes:
+#      # Optionally overwrite the YT-DLP binary
+#       - ./local/yt-dlp-version:/app/lib/yt-dlp

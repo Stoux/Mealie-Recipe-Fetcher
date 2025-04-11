@@ -1,0 +1,17 @@
+{
+  "name": "mealie-recipe-fetcher",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "execute": "node src/index.js"
+  },
+  "keywords": [],
+  "type": "module",
+  "author": "",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "@google/genai": "^0.8.0",
+    "axios": "^1.8.4"
+  }
+}
