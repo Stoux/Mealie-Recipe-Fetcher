@@ -39,7 +39,7 @@ export function getVideoDetails(ytldpPath, url) {
         execFile(ytldpPath, [url, '-j'], { maxBuffer: 10 * 1024 * 1024 }, async (error, stdout, stderr) => {
             // Handle possible error output
             if (error) {
-                console.error(`Error executing yt-dlp for URL: ${requestData.url}`);
+                console.error(`Error executing yt-dlp for URL: ${url}`);
                 console.error(error);
                 if (stderr) {
                     console.error('stderr:', stderr.trim());
