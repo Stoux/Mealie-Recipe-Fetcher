@@ -119,6 +119,8 @@ I've lost the formatting for the following text (after ----). Convert it into a 
 2. Convert any data points (so not in text fields), like CookingTime, to metric. 
 3. Put the full original text, excluding ingredients & steps, in the description.
 4. Optionally modify the title to not include any clickbait / call to actions. It should describe the meal as best as possible. Emoji's are allowed.
+5. Make sure to always have recipeIngredient and recipeInstructions fields, fallback to dummy data like "to do".
+6. Make sure it's valid schema.org Recipe format.
 
 - Additional data:
 Thumbnail: ${videoInfo.thumbnail}
