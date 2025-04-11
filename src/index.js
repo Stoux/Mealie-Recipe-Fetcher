@@ -154,6 +154,9 @@ ${videoInfo.description}
             console.log(aiResponse.text);
             console.log('-- END AI RESPONE --');
         }
+        if (error.response) {
+            error = { status: error.status, data: error.response.data }
+        }
         doErrorResponse(res, 500, error);
     }
 }
