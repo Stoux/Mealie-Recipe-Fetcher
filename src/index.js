@@ -117,7 +117,7 @@ I've lost the formatting for the following text (after ----). Convert it into a 
 - Rules:
 1. If the ingredients are not in Dutch, output them twice: first the original (do not modify the text at all) & then translated into dutch & metric system. If the ingredients are already in dutch, only output the originals.
 2. Convert any data points (so not in text fields), like CookingTime, to metric. 
-3. Put the full original text, excluding ingredients & steps, in the notes.
+3. Put the full original text, excluding ingredients & steps, in the description.
 4. Optionally modify the title to not include any clickbait / call to actions. It should describe the meal as best as possible. Emoji's are allowed.
 
 - Additional data:
