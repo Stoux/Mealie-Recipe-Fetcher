@@ -92,6 +92,8 @@ async function handleRequest(req, res) {
     // Start our action
     console.log('=> Request received:', requestData.url);
 
+    let aiResponse = undefined;
+
     try {
         // Check if Mealie already has that recipe
         console.log('=> Checking Mealie for duplicate recipe')
@@ -107,7 +109,7 @@ async function handleRequest(req, res) {
 
         // Prompt gemini to fetch that data
         console.log('=> Prompting Gemini to create a JSON')
-        const aiResponse = await ai.models.generateContent({
+        aiResponse = await ai.models.generateContent({
             model: GEMINI_MODEL,
             contents: `
 I've lost the formatting for the following text (after ----). Convert it into a structured Schema.org Recipe JSON. 
@@ -147,6 +149,11 @@ ${videoInfo.description}
             url: newRecipeUrl,
         }));
     } catch (error) {
+        if (aiResponse && aiResponse.text) {
+            console.log('-- AI Response --')
+            console.log(aiResponse.text);
+            console.log('-- END AI RESPONE --');
+        }
         doErrorResponse(res, 500, error);
     }
 }
