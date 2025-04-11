@@ -8,6 +8,7 @@ import {extractJson} from "./lib/gemini.js";
 // Configuration
 const YTDLP_PATH = process.env.YTDLP_PATH || '/app/lib/yt-dlp';
 const LISTEN_PORT = process.env.LISTEN_PORT || 8080;
+const PROTECT_WITH_TOKEN = process.env.PROTECT_WITH_TOKEN;
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
 const MEALIE_HOST = process.env.MEALIE_HOST;
@@ -56,6 +57,11 @@ async function handleRequest(req, res) {
     // Only accept POST requests to the root path for this example
     if (req.method !== 'POST' || req.url !== '/') {
         doErrorResponse(res, 404, { error: 'Not Found' });
+        return;
+    }
+
+    if (PROTECT_WITH_TOKEN && req.headers.authorization !== `Bearer ${PROTECT_WITH_TOKEN}`) {
+        doErrorResponse(res, 401, { error: 'Invalid token' });
         return;
     }
 
